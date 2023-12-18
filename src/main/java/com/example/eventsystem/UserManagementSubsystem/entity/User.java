@@ -1,14 +1,15 @@
 package com.example.eventsystem.UserManagementSubsystem.entity;
 
 
-import com.example.eventsystem.SystemConfigSubsystem.entity.BaseClass;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,10 +31,17 @@ public class User implements Serializable {
     @Column(name = "LAST_NAME",nullable = false)
     private String lastName;
 
+    @Column(name = "BIRTH_DATE")
+    private LocalDate birthDate;
+
     @Column(name = "USER_EMAIL",nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY,mappedBy = "user")
+    @Column(name = "PASSWORD",nullable = false)
+    private String password;
+
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER,mappedBy = "user")
     private List<Card> userCards;
 }
 

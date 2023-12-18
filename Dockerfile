@@ -13,4 +13,4 @@ FROM openjdk:17.0-slim
 WORKDIR /home/app
 EXPOSE 8080
 COPY --from=build /home/app/target/*.jar app.jar
-ENTRYPOINT [ "sh", "-c", "java -jar", "/app.jar" ]
+ENTRYPOINT [ "sh", "-c", "java", "-jar", "/app.jar" ]

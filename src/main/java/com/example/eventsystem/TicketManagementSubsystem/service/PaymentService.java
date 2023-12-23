@@ -76,14 +76,14 @@ public class PaymentService {
             payment.setTicket(ticketService.getTicket(paymentDto.getTicket()));
             paymentRepository.save(payment);
 
-            var qrCode = qrGeneratorService.generateQRCode(
-                    event.getEventName(),
-                    event.getEventDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString(),
-                    paymentDto.getTicket().getSeat().getAreaName(),
-                    paymentDto.getTicket().getSeat().getSeatCode());
-
+//            var qrCode = qrGeneratorService.generateQRCode(
+//                    event.getEventName(),
+//                    event.getEventDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString(),
+//                    paymentDto.getTicket().getSeat().getAreaName(),
+//                    paymentDto.getTicket().getSeat().getSeatCode());
+//
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(qrCode, "png", baos);
+//            ImageIO.write(qrCode, "png", baos);
             var qr =  baos.toByteArray();
 
             eventService.updateSeatStatus(paymentDto.getTicket().getSeat().getAreaName(),

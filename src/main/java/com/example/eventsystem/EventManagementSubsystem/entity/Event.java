@@ -27,7 +27,8 @@ public class Event implements Serializable{
 
     private String eventDescription;
 
-    private Date eventDate;
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "event")
+    private List<EventDates> eventDate;
 
     private Long eventPrice;
 

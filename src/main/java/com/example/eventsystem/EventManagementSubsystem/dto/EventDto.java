@@ -17,7 +17,10 @@ public class EventDto {
     private String eventCode;
     private String eventName;
     private String eventDescription;
-    private Date eventDate;
+//    private Date eventDate;
+    private List<String> eventDate;
+    private List<String> eventTime;
+
     private Long eventPrice;
     private CategoryDto category;
     private List<AreaDto> areas;

@@ -30,6 +30,9 @@ public class Card extends BaseClass implements Serializable {
     @Column(name = "CARD_EXPIRATION_DATE",nullable = false)
     private YearMonth cardExpirationDate;
 
+    @Column(name = "BALANCE",nullable = false)
+    private Long balance;
+
     @Column(name = "CARD_CVV_CODE",nullable = false,length = 3)
     private Integer cardCvv;
 

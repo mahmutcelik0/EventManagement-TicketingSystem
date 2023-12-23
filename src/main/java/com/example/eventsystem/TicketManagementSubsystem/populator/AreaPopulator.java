@@ -12,7 +12,7 @@ public class AreaPopulator extends GenericPopulator<Area, AreaDto> {
     private SeatPopulator seatPopulator;
 
     @Override
-    protected AreaDto populate(Area area) {
+    public AreaDto populate(Area area) {
         return new AreaDto(area.getAreaName(),seatPopulator.populateAll(area.getSeats()));
     }
 
@@ -21,7 +21,6 @@ public class AreaPopulator extends GenericPopulator<Area, AreaDto> {
 
         area.setAreaName(areaDto.getAreaName());
         area.setSeats(areaDto.getSeats().stream().map(e -> seatPopulator.reversePopulator(e)).toList());
-
         return area;
     }
 

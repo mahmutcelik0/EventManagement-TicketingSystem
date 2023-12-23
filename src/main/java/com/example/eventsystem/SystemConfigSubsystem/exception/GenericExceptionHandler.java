@@ -16,4 +16,9 @@ public class GenericExceptionHandler {
     public ResponseEntity<Object> notFoundExceptionHandler(NotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND); // {message:"..."} lı şekle dönüştürülebilir
     }
+
+    @ExceptionHandler(value = {InsufficientBalanceException.class})
+    public ResponseEntity<Object> insufficientBalanceExceptionHandler(InsufficientBalanceException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_ACCEPTABLE); // {message:"..."} lı şekle dönüştürülebilir
+    }
 }

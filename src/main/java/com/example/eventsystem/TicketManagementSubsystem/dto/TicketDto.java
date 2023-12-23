@@ -1,5 +1,7 @@
 package com.example.eventsystem.TicketManagementSubsystem.dto;
 
+
+import com.example.eventsystem.EventManagementSubsystem.dto.EventDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SeatDto {
-    private String seatCode; //integer olabilir
-    private String areaName;
+public class TicketDto {
+    private SeatDto seat; //area olması gerekli
+    private EventDto event;
 }

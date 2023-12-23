@@ -16,4 +16,5 @@ public class CardDto {
     private Long cardNumber;
     private YearMonth cardExpirationDate;
     private Integer cardCvv;
+    private Long balance;
 }

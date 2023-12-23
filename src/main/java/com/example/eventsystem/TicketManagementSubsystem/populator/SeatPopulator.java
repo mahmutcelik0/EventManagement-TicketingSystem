@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 public class SeatPopulator extends GenericPopulator<Seat, SeatDto> {
     @Override
     protected SeatDto populate(Seat seat) {
-        return new SeatDto(seat.getSeatCode(),seat.getSeatRow());
+        return new SeatDto(seat.getSeatCode(),seat.getArea().getAreaName());
     }
 
     protected Seat reversePopulator(SeatDto seatDto){
         Seat seat = new Seat();
         seat.setSeatCode(seatDto.getSeatCode());
-        seat.setSeatRow(seatDto.getSeatRow());
+
         return seat;
     }
 }

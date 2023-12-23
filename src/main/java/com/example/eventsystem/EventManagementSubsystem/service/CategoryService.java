@@ -33,4 +33,8 @@ public class CategoryService {
         categoryRepository.save(new Category(categoryDto.getCategoryName()));
         return new ResponseEntity<>("Kategori kaydedildi",HttpStatus.OK);
     }
+
+    public boolean checkExistenceOfCategory(String categoryName) {
+        return categoryRepository.existsCategoryByCategoryName(categoryName);
+    }
 }

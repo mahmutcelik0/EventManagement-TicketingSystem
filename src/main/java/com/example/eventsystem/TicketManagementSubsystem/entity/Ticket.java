@@ -30,6 +30,10 @@ public class Ticket implements Serializable {
     private Seat seat;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "AREA_NAME",referencedColumnName = "AREA_NAME")
+    private Area area;
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "EVENT_CODE",referencedColumnName = "EVENT_CODE")
     private Event event;
 

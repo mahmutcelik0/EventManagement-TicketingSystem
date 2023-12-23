@@ -53,4 +53,8 @@ public class UserService {
     public List<CardDto> getAllCardsOfUser(String email) throws NotFoundException {
         return cardService.getAllCardsOfUser(getUser(email).getId());
     }
+
+    public boolean checkUserExistence(String email){
+        return userRepository.findUserByEmail(email).isPresent();
+    }
 }

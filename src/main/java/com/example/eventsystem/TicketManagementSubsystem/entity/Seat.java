@@ -20,9 +20,6 @@ public class Seat implements Serializable {
     @Column(name = "SEAT_CODE",nullable = false)
     private String seatCode;
 
-    @Column(name = "SEAT_ROW")
-    private Character seatRow;
-
 //    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "seat")
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})

@@ -2,14 +2,14 @@ package com.example.eventsystem.EventManagementSubsystem.entity;
 
 import com.example.eventsystem.TicketManagementSubsystem.entity.Area;
 import com.example.eventsystem.TicketManagementSubsystem.entity.Ticket;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,7 +18,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Event {
+public class Event implements Serializable{
     @Id
     @Column(name = "EVENT_CODE")
     private String eventCode;
@@ -29,10 +29,12 @@ public class Event {
 
     private Date eventDate;
 
+    private Long eventPrice;
+
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "event")
     private List<Ticket> tickets;
 
-    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinTable(
             name = "EVENT_AREAS",
             joinColumns = @JoinColumn(referencedColumnName = "EVENT_CODE",name = "EVENT_CODE"),
@@ -40,9 +42,12 @@ public class Event {
     )
     private Set<Area> areas;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_NAME")
+    @JsonBackReference
     private Category category;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "event")
     private List<Status> statusPK;
+
 }

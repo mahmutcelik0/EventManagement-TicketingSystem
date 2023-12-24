@@ -19,13 +19,12 @@ public class EventDates {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "EVENT_DATE")
     private Date eventDate;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "event_code",referencedColumnName = "event_code")
     private Event event;
-
-
 
 
 

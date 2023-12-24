@@ -34,7 +34,7 @@ public class EventPopulator extends GenericPopulator<Event, EventDto> {
         event.getEventDate().forEach(e->{
             LocalDateTime dateTime = LocalDateTime.parse(e.getEventDate().toString(), formatter);
             if(CollectionUtils.isEmpty(eventDto.getEventDate())) eventDto.setEventDate(new ArrayList<>());
-            eventDto.getEventDate().add(String.valueOf(dateTime.toLocalDate()));
+            eventDto.getEventDate().add(dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd MMM")));
             if(CollectionUtils.isEmpty(eventDto.getEventTime())) eventDto.setEventTime(new ArrayList<>());
             eventDto.getEventTime().add(String.valueOf(dateTime.toLocalTime()));
         });

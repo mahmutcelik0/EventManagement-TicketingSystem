@@ -8,13 +8,13 @@ import java.util.Objects;
 
 @Embeddable
 public class StatusPK implements Serializable {
-    @Column(name = "EVENT_CODE",nullable = false)
+    @Column(name = "EVENT_CODE",nullable = false,length = 30)
     private String eventCode;
 
-    @Column(name = "AREA_NAME",nullable = false)
+    @Column(name = "AREA_NAME",nullable = false,length = 30)
     private String areaName;
 
-    @Column(name = "SEAT_CODE",nullable = false)
+    @Column(name = "SEAT_CODE",nullable = false,length = 30)
     private String seatCode;
 
     @Override

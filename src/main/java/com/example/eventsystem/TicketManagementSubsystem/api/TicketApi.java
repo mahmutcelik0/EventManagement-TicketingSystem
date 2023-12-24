@@ -47,13 +47,18 @@ public class TicketApi {
     }
 
     @PostMapping(value = "/payments",produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<?> addNewPaymentToUser(@RequestParam String email, @RequestBody PaymentDto paymentDto) throws Exception {
-        return paymentService.addNewPaymentToUser(email,paymentDto);
+    public ResponseEntity<?> addNewPaymentToUser(@RequestParam("email") String email, @RequestBody PaymentDto paymentDto,@RequestParam("eventDate") String eventDate, @RequestParam("eventTime")String eventTime) throws Exception {
+        return paymentService.addNewPaymentToUser(email,paymentDto,eventDate,eventTime);
     }
 
     @GetMapping("/seats/{area}")
     public List<SeatDto> getAllSeatsOfArea(@PathVariable("area") String areaName){
         return seatService.getAllSeatsOfArea(areaName);
+    }
+
+    @GetMapping("/seats")
+    public List<?> getAllSeatsWithCurrentStatus(String eventCode,String eventDate,String eventTime,String areaName){
+        return seatService.getAllSeatsWithCurrentStatus(eventCode,eventDate,eventTime,areaName);
     }
 
 

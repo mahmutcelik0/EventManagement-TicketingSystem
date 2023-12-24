@@ -11,6 +11,9 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.webjars.NotFoundException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,11 +41,17 @@ public class EventService {
         return eventPopulator.populateAll(eventsOfCategory);
     }
 
-    public boolean isAvailable(String eventCode, String areaName, String seatCode){
-        return eventRepository.isReserved(eventCode,areaName,seatCode).name().equals(StatusEnum.AVAILABLE.name());
+    public boolean isAvailable(String eventCode, String areaName, String seatCode,Date date){
+
+        return eventRepository.isReserved(eventCode,areaName,seatCode,date).name().equals(StatusEnum.AVAILABLE.name());
     }
 
-    public void updateSeatStatus(String areaName,String eventCode,String seatCode){
-        eventRepository.updateSeatStatus(StatusEnum.RESERVED,areaName,eventCode,seatCode);
+
+
+    public void updateSeatStatus(String areaName,String eventCode,String seatCode,Date date){
+        eventRepository.updateSeatStatus(StatusEnum.RESERVED,areaName,eventCode,seatCode,date);
     }
+
+
+
 }

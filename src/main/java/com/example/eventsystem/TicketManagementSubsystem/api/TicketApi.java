@@ -15,6 +15,9 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.BufferedImage;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,30 +38,40 @@ public class TicketApi {
     }
 
     @PostMapping("/areas")
-    public ResponseEntity<?> addNewArea(@RequestBody AreaDto areaDto){
+    public ResponseEntity<?> addNewArea(@RequestBody AreaDto areaDto) {
         return areaService.addNewArea(areaDto);
     }
 
     @GetMapping("/payments")
     public List<PaymentDto> getAllPaymentsOfUser(@RequestParam String email) throws NotFoundException {
-        var payments =  paymentService.getAllPaymentsOfUser(email);
-        if(CollectionUtils.isEmpty(payments)) throw new NotFoundException("User doesn't have any payment");
+        var payments = paymentService.getAllPaymentsOfUser(email);
+        if (CollectionUtils.isEmpty(payments)) throw new NotFoundException("User doesn't have any payment");
         return payments;
     }
 
-    @PostMapping(value = "/payments",produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<?> addNewPaymentToUser(@RequestParam("email") String email, @RequestBody PaymentDto paymentDto,@RequestParam("eventDate") String eventDate, @RequestParam("eventTime")String eventTime) throws Exception {
-        return paymentService.addNewPaymentToUser(email,paymentDto,eventDate,eventTime);
+    @PostMapping(value = "/payments", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<?> addNewPaymentToUser(@RequestParam("email") String email, @RequestBody PaymentDto paymentDto, @RequestParam("eventDate") String eventDate, @RequestParam("eventTime") String eventTime) throws Exception {
+        return paymentService.addNewPaymentToUser(email, paymentDto, eventDate, eventTime);
     }
 
     @GetMapping("/seats/{area}")
-    public List<SeatDto> getAllSeatsOfArea(@PathVariable("area") String areaName){
+    public List<SeatDto> getAllSeatsOfArea(@PathVariable("area") String areaName) {
         return seatService.getAllSeatsOfArea(areaName);
     }
 
     @GetMapping("/seats")
-    public List<?> getAllSeatsWithCurrentStatus(String eventCode,String eventDate,String eventTime,String areaName){
-        return seatService.getAllSeatsWithCurrentStatus(eventCode,eventDate,eventTime,areaName);
+    public List<?> getAllSeatsWithCurrentStatus(String eventCode, String eventDate, String eventTime, String areaName) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd%20MMM");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM");
+
+        try {
+            Date date = inputFormat.parse(eventDate);
+            String outputDate = outputFormat.format(date);
+            return seatService.getAllSeatsWithCurrentStatus(eventCode, outputDate, eventTime, areaName);
+
+        } catch (ParseException e) {
+            throw new RuntimeException("");
+        }
     }
 
 

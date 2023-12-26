@@ -46,14 +46,14 @@ public class TicketApi {
         return areaService.addNewArea(areaDto);
     }
 
-    @GetMapping("/payments")
+    @GetMapping("/payments/getAll")
     public List<PaymentDto> getAllPaymentsOfUser(@RequestParam String email) throws NotFoundException {
         var payments = paymentService.getAllPaymentsOfUser(email);
         if (CollectionUtils.isEmpty(payments)) throw new NotFoundException("User doesn't have any payment");
         return payments;
     }
 
-    @PostMapping(value = "/payments", produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "/payments", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<?> addNewPaymentToUser(@RequestParam("email") String email,
                                                  @RequestParam("eventDate") String eventDate,
                                                  @RequestParam("eventTime") String eventTime,

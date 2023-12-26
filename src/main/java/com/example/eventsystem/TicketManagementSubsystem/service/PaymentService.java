@@ -77,7 +77,7 @@ public class PaymentService {
             var payment = new Payment();
             payment.setDate(LocalDateTime.now());
             payment.setCard(card);
-            payment.setTicket(ticketService.getTicket(paymentDto.getTicket()));
+            payment.setTicket(ticketService.getTicket(paymentDto.getTicket(),date));
             paymentRepository.save(payment);
 
             var qrCode = qrGeneratorService.generateQRCode(

@@ -1,13 +1,16 @@
 package com.example.eventsystem.TicketManagementSubsystem.api;
 
+import com.example.eventsystem.EventManagementSubsystem.dto.EventDto;
 import com.example.eventsystem.SystemConfigSubsystem.exception.InsufficientBalanceException;
 import com.example.eventsystem.SystemConfigSubsystem.exception.NotFoundException;
 import com.example.eventsystem.TicketManagementSubsystem.dto.AreaDto;
 import com.example.eventsystem.TicketManagementSubsystem.dto.PaymentDto;
 import com.example.eventsystem.TicketManagementSubsystem.dto.SeatDto;
+import com.example.eventsystem.TicketManagementSubsystem.dto.TicketDto;
 import com.example.eventsystem.TicketManagementSubsystem.service.AreaService;
 import com.example.eventsystem.TicketManagementSubsystem.service.PaymentService;
 import com.example.eventsystem.TicketManagementSubsystem.service.SeatService;
+import com.example.eventsystem.UserManagementSubsystem.dto.CardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.image.BufferedImage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +54,23 @@ public class TicketApi {
     }
 
     @PostMapping(value = "/payments", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<?> addNewPaymentToUser(@RequestParam("email") String email, @RequestBody PaymentDto paymentDto, @RequestParam("eventDate") String eventDate, @RequestParam("eventTime") String eventTime) throws Exception {
+    public ResponseEntity<?> addNewPaymentToUser(@RequestParam("email") String email,
+                                                 @RequestParam("eventDate") String eventDate,
+                                                 @RequestParam("eventTime") String eventTime,
+                                                 @RequestParam("cardNumber") String cardNumber,
+                                                 @RequestParam("cardMonth") String cardMonth,
+                                                 @RequestParam("cardYear") String cardYear,
+                                                 @RequestParam("cardCvv") String cardCvv,
+                                                 @RequestParam("seatCode") String seatCode,
+                                                 @RequestParam("eventCode") String eventCode) throws Exception {
+        YearMonth yearMonth = YearMonth.parse(cardYear+"-"+cardMonth);
+
+        CardDto cardDto = new CardDto(Long.valueOf(cardNumber),yearMonth,Integer.valueOf(cardCvv));
+        SeatDto seatDto = new SeatDto(seatCode,"Salon-2");
+        EventDto eventDto = new EventDto(eventCode);
+        TicketDto ticketDto = new TicketDto(seatDto,eventDto);
+        PaymentDto paymentDto = new PaymentDto(cardDto,ticketDto);
+
         return paymentService.addNewPaymentToUser(email, paymentDto, eventDate, eventTime);
     }
 

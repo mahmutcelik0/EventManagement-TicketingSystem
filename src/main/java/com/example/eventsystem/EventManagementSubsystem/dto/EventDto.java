@@ -24,4 +24,9 @@ public class EventDto {
     private Long eventPrice;
     private CategoryDto category;
     private List<AreaDto> areas;
+
+
+    public EventDto(String eventCode) {
+        this.eventCode = eventCode;
+    }
 }

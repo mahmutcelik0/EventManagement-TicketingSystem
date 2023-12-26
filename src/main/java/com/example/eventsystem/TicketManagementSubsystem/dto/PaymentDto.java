@@ -16,4 +16,9 @@ public class PaymentDto {
     private LocalDateTime date;
     private CardDto card;
     private TicketDto ticket;
+
+    public PaymentDto(CardDto card, TicketDto ticket) {
+        this.card = card;
+        this.ticket = ticket;
+    }
 }

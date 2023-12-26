@@ -17,4 +17,10 @@ public class CardDto {
     private YearMonth cardExpirationDate;
     private Integer cardCvv;
     private Long balance;
+
+    public CardDto(Long cardNumber, YearMonth cardExpirationDate, Integer cardCvv) {
+        this.cardNumber = cardNumber;
+        this.cardExpirationDate = cardExpirationDate;
+        this.cardCvv = cardCvv;
+    }
 }

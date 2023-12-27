@@ -48,7 +48,7 @@ public class CardService {
         var userCards = cardRepository.findAllByUserEmail(email);
         var userCard = userCards.stream().filter(e -> {
             if (!e.getCardCvv().equals(card.getCardCvv())) return false;
-            else if (e.getCardExpirationDate().equals(card.getCardExpirationDate())) return false;
+            else if (!e.getCardExpirationDate().equals(card.getCardExpirationDate())) return false;
             else if (!passwordEncoder.matches(String.valueOf(card.getCardNumber()), e.getCardNumber())) return false;
             return true;
         }).findFirst();

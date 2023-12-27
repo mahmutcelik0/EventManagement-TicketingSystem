@@ -27,7 +27,7 @@ public class QrGeneratorService {
                 .append("Date:").append(date).append("\n").append("Area:").append(areaName).append("\n").append("Seat:").append(seatName);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix =
-                barcodeWriter.encode(str.toString(), BarcodeFormat.QR_CODE, 200, 200);
+                barcodeWriter.encode(str.toString(), BarcodeFormat.QR_CODE, 300, 300);
 
         var bufferedImage =  MatrixToImageWriter.toBufferedImage(bitMatrix);
         int width = bufferedImage.getWidth();

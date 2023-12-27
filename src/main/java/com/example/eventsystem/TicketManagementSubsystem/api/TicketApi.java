@@ -63,7 +63,8 @@ public class TicketApi {
                                                  @RequestParam("cardCvv") String cardCvv,
                                                  @RequestParam("seatCode") String seatCode,
                                                  @RequestParam("eventCode") String eventCode) throws Exception {
-        YearMonth yearMonth = YearMonth.parse(cardYear+"-"+cardMonth);
+        cardYear = cardYear.isEmpty() ?"24":cardYear;
+        YearMonth yearMonth = YearMonth.parse("20"+cardYear+"-"+cardMonth);
 
         CardDto cardDto = new CardDto(Long.valueOf(cardNumber),yearMonth,Integer.valueOf(cardCvv));
         SeatDto seatDto = new SeatDto(seatCode,"Salon-2");
